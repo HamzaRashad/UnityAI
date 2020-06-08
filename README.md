@@ -1,5 +1,5 @@
 # UnityAI
-Implement AI mechanic in Unity
+AI mechanic in Unity
 HAMZA RASHAD
 GOZDE KESAR
 MD KUDRAT-E-KHUDA
