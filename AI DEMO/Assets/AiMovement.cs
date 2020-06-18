@@ -6,8 +6,8 @@ public class AiMovement : MonoBehaviour
 {
 	public Animator anim;
 	public static AiMovement instance;
-	public float aiBatsmanReachLimitMax;
-	public float aiBatsmanReachLimitMin;
+	public BatMovementScript playerBat;
+
 	public float AITimeGap;
 	public float AIPaddleSpeed;
 	private float tc;
@@ -15,8 +15,7 @@ public class AiMovement : MonoBehaviour
 	public bool isActive;
 	public int aiCounter = 0;
 	public GameObject ball;
-	public int aIplayModes = 1;
-	public int aImaxCounter = 0;
+
 
 
 
@@ -28,12 +27,10 @@ public class AiMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		isActive = true;
-		anim = gameObject.GetComponent<Animator>();
-		anim.enabled = false;
+		
+
 		aiCounter = 0;
-		aIplayModes = 1;
-		aImaxCounter = 0;
+
 
 
 
@@ -43,6 +40,7 @@ public class AiMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
 		this.transform.position = new Vector3(Mathf.Clamp(transform.position.x,transform.position.x,transform.position.x),transform.position.y,Mathf.Clamp(transform.position.z,-25.2f,27.8f));
 		if (isActive) 
 		{
@@ -63,35 +61,41 @@ public class AiMovement : MonoBehaviour
 
 		}
 
-
+//		
 
 
 
 	}
-
-
-	void TurnOff()
-	{
-
-		BatMovementScript.instance.counter = 0;
-		BatMovementScript.instance.maxCounter = 0;
-	}
-
-	public void resetAiParams()
-	{
-		transform.position = new Vector3 (-1.05f, 0.265f, -0.09f);
-		aiCounter = 0;
-		aImaxCounter = 0;
-		isActive = true;
-		aIplayModes = 1;
-	}
-
+		
 	public void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.tag == "ball") 
 		{
-			BallMovementScript.instance.direction = new Vector3 (1f, 0f, Random.Range(-0.5f,0.8f));
-			BallMovementScript.instance.AiHitTheBall (BallMovementScript.instance.direction, BatMovementScript.instance.batSpeed);
+			if (playerBat.transform.position.z < 0) 
+			{
+				PlayRightShot ();
+			} 
+			if (playerBat.transform.position.z > 0) 
+			{
+				PlayLeftShot ();
+			}
+
 		}
 	}
+
+	public void PlayRightShot()
+	{
+		BallMovementScript.instance.direction = new Vector3 (1f, 0f, Random.Range(0.8f,2f));
+		BatMovementScript.instance.batSpeed = Random.Range (60, 100);
+		BallMovementScript.instance.AiHitTheBall (BallMovementScript.instance.direction, BatMovementScript.instance.batSpeed = Random.Range (60, 100));
+	}
+
+	public void PlayLeftShot()
+	{
+		BallMovementScript.instance.direction = new Vector3 (1f, 0f, Random.Range(-0.8f,-2f));
+		BallMovementScript.instance.AiHitTheBall (BallMovementScript.instance.direction, BatMovementScript.instance.batSpeed = Random.Range (60, 100));
+	}
+
+
+
 }

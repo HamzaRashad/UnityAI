@@ -33,8 +33,8 @@ public class drag : MonoBehaviour
 		{
 		
 
-		float moveSpeed = 35;    // SPEED OF PLAYER IF 1 WIILEXACTLY SAME FINGER MOVE SPEED INCREASE IF MORE THAN 1 (TRY BY CAHNGING THE VALUES)
-		if (Input.GetMouseButtonDown(0))
+		float moveSpeed = 35;// SPEED OF PLAYER IF 1 WIILEXACTLY SAME FINGER MOVE SPEED INCREASE IF MORE THAN 1 (TRY BY CAHNGING THE VALUES)
+		if (Input.GetMouseButtonDown(0)&&EventSystem.current.currentSelectedGameObject!=btn1 &&EventSystem.current.currentSelectedGameObject!=btn2 &&EventSystem.current.currentSelectedGameObject!=btn3 )
 		{
 			
 
@@ -49,8 +49,6 @@ public class drag : MonoBehaviour
 			mouseFarPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, moveSpeed);
 			mouseFarPos = Camera.main.ScreenToWorldPoint (mouseFarPos);
 			mouseFarPos = new Vector3 (mouseFarPos.x, mouseFarPos.y, mouseFarPos.z);
-
-
 			// CHANGE THE CONSTANT TO SCREEN WIDTH FOR X AND IEGHT FOR Y FOR COMPATIBILITY DONT ALLOW PLAYER TO OUT OF SCREEN
 			transform.position=new Vector3 (Mathf.Clamp (mouseFarPos.x, 38.20768f, 38.20768f), Mathf.Clamp(mouseFarPos.y,6.002729f,6.002729f),Mathf.Clamp( mouseFarPos.z,-18.8f,33.5f));
 

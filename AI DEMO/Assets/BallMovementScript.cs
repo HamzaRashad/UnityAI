@@ -48,36 +48,44 @@ public class BallMovementScript : MonoBehaviour
 		{
 			this.transform.position += new Vector3 (direction.x * ballSpeed * Time.deltaTime, 0f, direction.z * ballSpeed * Time.deltaTime);
 
+			if (this.transform.position.x < -4) {
+				AiMovement.instance.isActive = true;
+			} else
+				AiMovement.instance.isActive = false;
+
 		}
-	
+
 	}
 
 
 	public void BatHitTheBall(Vector3 hitDirection, float batSpeed)
 	{
 
-
+//		
 
 		float hitSpeed = ballSpeed;							//(ballSpeed / 2) + batSpeed;
 
-		rb.AddForce (direction * hitSpeed);
+
 		rb.constraints = RigidbodyConstraints.FreezePositionY;
 
-	}
 
+	}
+//
 	public void AiHitTheBall(Vector3 hitDirection, float batSpeed)
 	{
 
+//		
 
 
 		float hitSpeed = ballSpeed;									//(ballSpeed / 2) + batSpeed;
-		rb.AddForce (direction * hitSpeed);
+
 		rb.constraints = RigidbodyConstraints.FreezePositionY;
 
 
 
-	}
 
+	}
+//
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.tag == "bounds") 
